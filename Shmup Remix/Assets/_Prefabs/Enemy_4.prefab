@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3973578941065623539}
   - component: {fileID: 2064021584073248669}
   - component: {fileID: 9205108607715533417}
-  - component: {fileID: 3664991698859428713}
+  - component: {fileID: 4037564539876635965}
   m_Layer: 9
   m_Name: WingR
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &3664991698859428713
-SphereCollider:
+--- !u!136 &4037564539876635965
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -89,9 +89,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Height: 1.0000002
+  m_Direction: 0
+  m_Center: {x: 0, y: -0.00000071525574, z: 0}
 --- !u!1 &560828246169667686
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +195,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7765342551521833813}
   - component: {fileID: 2127427973077843297}
+  - component: {fileID: -8184882086894714858}
+  - component: {fileID: 4024649233596231207}
   m_Layer: 9
   m_Name: Enemy_4
   m_TagString: Enemy
@@ -235,6 +238,49 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!114 &-8184882086894714858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251793592892302700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1040c784ff0cf3a4ebd9216483f75412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  fireRate: 0.3
+  health: 15
+  score: 100
+  showDamageDuration: 0.1
+  originalColors: []
+  materials: []
+  showingDamage: 0
+  damageDoneTime: 0
+  notifiedOfDestruction: 0
+--- !u!114 &4024649233596231207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251793592892302700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf0657859c507c45966253ad8c92625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 3.5
+  keepOnScreen: 0
+  isOnScreen: 1
+  camWidth: 0
+  camHeight: 0
+  offRight: 0
+  offLeft: 0
+  offUp: 0
+  offDown: 0
 --- !u!1 &5802380047320942919
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +292,7 @@ GameObject:
   - component: {fileID: 3109894268704112985}
   - component: {fileID: 2758939849838733202}
   - component: {fileID: 7317079420645757462}
-  - component: {fileID: 5116659235757706034}
+  - component: {fileID: 4487866220994328436}
   m_Layer: 9
   m_Name: WingL
   m_TagString: Untagged
@@ -314,8 +360,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &5116659235757706034
-SphereCollider:
+--- !u!136 &4487866220994328436
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -324,8 +370,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7425093945143189721
 GameObject:
@@ -338,7 +385,7 @@ GameObject:
   - component: {fileID: 6751880279520781252}
   - component: {fileID: 7215915508329357209}
   - component: {fileID: 2142475852202072351}
-  - component: {fileID: 7682220999775861073}
+  - component: {fileID: 5130815871591114685}
   m_Layer: 9
   m_Name: Fuselage
   m_TagString: Untagged
@@ -406,8 +453,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &7682220999775861073
-SphereCollider:
+--- !u!136 &5130815871591114685
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -416,6 +463,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

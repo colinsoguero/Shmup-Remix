@@ -19,7 +19,7 @@ public class BoundsCheck : MonoBehaviour
     [HideInInspector]
     public bool offRight, offLeft, offUp, offDown;
 
-    private void Awake()
+    void Awake()
     {
         camHeight = Camera.main.orthographicSize;
         camWidth = camHeight * Camera.main.aspect;
