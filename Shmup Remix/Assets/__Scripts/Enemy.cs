@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Enemy : MonoBehaviour
 {
     [Header("Set in Inspector: Enemy")]
@@ -10,6 +9,8 @@ public class Enemy : MonoBehaviour
     public float health = 10;
     public int score = 100; // Points earned for destroying this
     public float showDamageDuration = 0.1f; // # seconds to show damage
+    public float damageOnCollision = 2.0f;
+    public AudioSource hit;
 
     [Header("Set Dynamically: Enemy")]
     public Color[] originalColors;
@@ -18,8 +19,9 @@ public class Enemy : MonoBehaviour
     public float damageDoneTime; // Time to stop showing damage
     public bool notifiedOfDestruction = false;
 
-
     protected BoundsCheck bndCheck;
+
+    
 
     void Awake()
     {
@@ -58,6 +60,7 @@ public class Enemy : MonoBehaviour
         {
              // We're off the bottom, so destroy this GameObject
              Destroy(gameObject);
+            
         }
     }
 
@@ -68,6 +71,13 @@ public class Enemy : MonoBehaviour
         pos = tempPos;
     }
 
+    //public void MoveX()
+    //{
+    //    Vector3 tempPos = pos;
+    //    tempPos.x += speed * Time.deltaTime;
+    //    pos = tempPos;
+    //}
+
     void OnCollisionEnter(Collision coll)
     {
         GameObject otherGO = coll.gameObject;
@@ -75,7 +85,7 @@ public class Enemy : MonoBehaviour
         {
             case "ProjectileHero":
                 Projectile p = otherGO.GetComponent<Projectile>();
-                // If this Enemy is off screen, don't damge it
+                // If this Enemy is off screen, don't damage it
                 if (!bndCheck.isOnScreen)
                 {
                     Destroy(otherGO);
@@ -85,17 +95,32 @@ public class Enemy : MonoBehaviour
                 // Hurt this Enemy
                 ShowDamage();
                 // Get the damage amount from the Main WEAP_DICT
-                health -= Main.GetWeaponDefinition(p.type).damageOnHit;
-                if (health <= 0)
+                if(p.type == WeaponType.blaster && name == "Enemy_0(Clone)")
                 {
-                    Destroy(this.gameObject);
+                    health -= Main.GetWeaponDefinition(p.type).damageOnHit;
+                    if (health <= 0)
+                    {
+                        Destroy(this.gameObject);
+                        
+                    }
+                }
+                else if (p.type == WeaponType.blueblaster && name == "Enemy_5(Clone)")
+                {
+                    health -= Main.GetWeaponDefinition(p.type).damageOnHit;
+                    if (health <= 0)
+                    {
+                        Destroy(this.gameObject);
+                        
+                    }
                 }
                 Destroy(otherGO);
+                hit.Play();
                 break;
 
             default:
                 print("Enemy hit by non-ProjectileHero: " + otherGO.name);
                 break;
+
         }
     }
 
@@ -117,4 +142,11 @@ public class Enemy : MonoBehaviour
         }
         showingDamage = false;
     }
+
+    //public float _health
+    //{
+    //    get { return health; }
+
+    //    set { health = value;  }
+    //}
 }

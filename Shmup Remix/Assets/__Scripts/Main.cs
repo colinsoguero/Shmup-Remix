@@ -13,6 +13,7 @@ public class Main : MonoBehaviour
     public float enemySpawnPerSecond = 0.5f; // # Enemies/second
     public float enemyDefaultPadding = 1.5f; // Padding for position
     public WeaponDefinition[] weaponDefinitions;
+    public GameObject Enemy4;
 
     private BoundsCheck bndCheck;
 
@@ -30,6 +31,42 @@ public class Main : MonoBehaviour
         {
             WEAP_DICT[def.type] = def;
         }
+    }
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "_Scene_4")
+        {
+            GameObject go = Instantiate<GameObject>(Enemy4);
+
+            // Position the Enemy above the screen with a random x position
+            float enemyPadding = enemyDefaultPadding;
+            if (go.GetComponent<BoundsCheck>() != null)
+            {
+                enemyPadding = Mathf.Abs(go.GetComponent<BoundsCheck>().radius);
+
+            }
+
+            // Set the initial position for the spawned Enemy
+            Vector3 pos = Vector3.zero;
+            float xMin = -bndCheck.camWidth + enemyPadding;
+            float xMax = bndCheck.camWidth - enemyPadding;
+            pos.x = Random.Range(xMin, xMax);
+            pos.y = bndCheck.camHeight + enemyPadding;
+            go.transform.position = pos;
+        }
+        else
+        {
+            GameObject go = Instantiate<GameObject>(Enemy4);
+            Vector3 pos = new Vector3(1000, 1000, 0);
+            go.transform.position = pos;
+        }
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "_Scene_0")
+        enemySpawnPerSecond += .015f * Time.deltaTime;
     }
 
     public void SpawnEnemy()
@@ -53,9 +90,13 @@ public class Main : MonoBehaviour
         pos.y = bndCheck.camHeight + enemyPadding;
         go.transform.position = pos;
 
+
+
         // Invoke SpawnEnemy() again
         Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
     }
+
+
 
     public void DelayedRestart(float delay)
     {
@@ -65,8 +106,21 @@ public class Main : MonoBehaviour
 
     public void Restart()
     {
+        Scene scene = SceneManager.GetActiveScene();
         // Reload _Scene_0 to restart the game
-        SceneManager.LoadScene("_Scene_0");
+        if(scene.name == "_Scene_0")
+        {
+            SceneManager.LoadScene("_Scene_0");
+        }
+        else if(scene.name == "_Scene_2")
+        {
+            SceneManager.LoadScene("_Scene_2");
+        }
+        else if (scene.name == "_Scene_4")
+        {
+            SceneManager.LoadScene("_Scene_4");
+        }
+
     }
 
     /// <summary>

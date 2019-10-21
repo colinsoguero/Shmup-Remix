@@ -14,7 +14,9 @@ public enum WeaponType
     phaser, // Shots that move in waves
     missile, // Homing missiles
     laser, // Damage over time
-    shield // Raise shieldLevel
+    shield, // Raise shieldLevel
+    blueblaster,
+    purpblaster
 }
 
 /// <summary>
@@ -39,7 +41,7 @@ public class WeaponDefinition
 public class Weapon : MonoBehaviour
 {
     static public Transform PROJECTILE_ANCHOR;
-
+    public static Weapon instance;
     [Header("Set Dynamically")]
     [SerializeField]
     private WeaponType _type = WeaponType.none;
@@ -47,8 +49,11 @@ public class Weapon : MonoBehaviour
     public GameObject collar;
     public float lastShotTime; // Time last shot was fired
     private Renderer collarRend;
+
+    public AudioSource fire;
     void Start()
     {
+        instance = this;
         collar = transform.Find("Collar").gameObject;
         collarRend = collar.GetComponent<Renderer>();
 
@@ -89,7 +94,7 @@ public class Weapon : MonoBehaviour
         }
         def = Main.GetWeaponDefinition(_type);
         collarRend.material.color = def.color;
-        lastShotTime = 0; // You can fire immediately after _type is set
+        //lastShotTime = 0; // You can fire immediately after _type is set
     }
 
     public void Fire()
@@ -101,6 +106,7 @@ public class Weapon : MonoBehaviour
         {
             return;
         }
+        fire.Play();
         Projectile p;
         Vector3 vel = Vector3.up * def.velocity;
         if(transform.up.y < 0)
@@ -123,6 +129,11 @@ public class Weapon : MonoBehaviour
                 p = MakeProjectile(); // Make left Projectile
                 p.transform.rotation = Quaternion.AngleAxis(-10, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
+                break;
+
+            case WeaponType.blueblaster:
+                p = MakeProjectile();
+                p.rigid.velocity = vel;
                 break;
         }
     }
